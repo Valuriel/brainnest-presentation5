@@ -16,8 +16,9 @@ class Calculator {
     }
     // add number to the screen
     appendNumber(number) {
+      // limiting the user to only one period
       if (number === '.' && this.currentOperand.includes('.')) return
-      // appending number to the screen instead of adding the up
+      // appending number to the screen instead of adding them up
       this.currentOperand = this.currentOperand.toString() + number.toString()
     }
     // Function for operation buttons
@@ -35,6 +36,7 @@ class Calculator {
       let computation
       const prev = parseFloat(this.previousOperand)
       const current = parseFloat(this.currentOperand)
+      // check if the user types in a number or not
       if (isNaN(prev) || isNaN(current)) return
       switch (this.operation) {
         case '+':
@@ -56,22 +58,9 @@ class Calculator {
       this.operation = undefined
       this.previousOperand = ''
     }
-    // Returns a number converted
+    // Display Digits
     getDisplayNumber(number) {
-      const stringNumber = number.toString()
-      const integerDigits = parseFloat(stringNumber.split('.')[0])
-      const decimalDigits = stringNumber.split('.')[1]
-      let integerDisplay
-      if (isNaN(integerDigits)) {
-        integerDisplay = ''
-      } else {
-        integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
-      }
-      if (decimalDigits != null) {
-        return `${integerDisplay}.${decimalDigits}`
-      } else {
-        return integerDisplay
-      }
+      return number
     }
     // Function that updates values on output screen
     updateDisplay() {
@@ -85,7 +74,7 @@ class Calculator {
       }
     }
   }
-  
+// Variable declarartions  
 const numberButtons = document.querySelectorAll('[data-number]')
 const operationButtons = document.querySelectorAll('[data-operation]')
 const equalsButton = document.querySelector('[data-equals]')
